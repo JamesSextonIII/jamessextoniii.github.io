@@ -16,7 +16,6 @@
             overflow: hidden;
         }
         
-        /* The Outer Frame: Keeps the border and shadow, stays fixed on screen */
         .office-frame {
             width: 95vw;
             max-width: 1500px;
@@ -25,32 +24,42 @@
             border-radius: 12px; 
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 0, 0, 0.5);
             
-            /* Magic trick: Enables horizontal swiping inside the frame on mobile */
             overflow-x: auto; 
             overflow-y: hidden; 
-            -webkit-overflow-scrolling: touch; /* Smooth swiping on phones */
+            /* Hide scrollbar for IE, Edge and Firefox */
+            -ms-overflow-style: none;  
+            scrollbar-width: none;  
         }
 
-        /* The Inner Image: Holds its shape so nothing gets cropped out permanently */
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .office-frame::-webkit-scrollbar {
+            display: none;
+        }
+
         .office-scene {
             height: 100%;
-            aspect-ratio: 16 / 9; /* Maintains the original widescreen shape */
-            
+            aspect-ratio: 16 / 9; 
             background-image: url('assets/cubicle-bg-1.0.webp'); 
             background-size: cover; 
             background-repeat: no-repeat;
             background-position: center;
             position: relative;
+            
+            /* Indicate the area is draggable */
+            cursor: grab;
+        }
+        
+        /* Change cursor when actively dragging */
+        .office-scene:active {
+            cursor: grabbing;
         }
 
-        /* --- MOBILE PANNING FIX --- */
         @media (max-width: 768px) {
             .office-frame {
-                height: 85vh; /* Slightly shorter to account for mobile browser bars */
+                height: 85vh; 
             }
             .office-scene {
-                /* Forces the image to stay wide on mobile so objects stay large. 
-                   Because it's wider than the screen, it triggers the scroll/swipe! */
+                /* Ensures the image stays wide enough to drag on mobile */
                 min-width: 200vw; 
             }
         }
@@ -58,14 +67,42 @@
 </head>
 <body>
     
-    <!-- We now have a Frame that holds the Scene -->
-    <div class="office-frame">
-        <div class="office-scene">
+    <div class="office-frame" id="officeFrame">
+        <div class="office-scene" id="officeScene">
             
-            <!-- We will map our SVG click zones over this div next -->
+            <!-- Clickable zones will go here -->
             
         </div>
     </div>
-    
+
+    <!-- Mouse and Touch Dragging Script -->
+    <script>
+        const slider = document.getElementById('officeFrame');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+        });
+        
+        slider.addEventListener('mouseleave', () => {
+            isDown = false;
+        });
+        
+        slider.addEventListener('mouseup', () => {
+            isDown = false;
+        });
+        
+        slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault(); // Prevents accidental text/image highlighting
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 2; // The * 2 determines scroll speed/sensitivity
+            slider.scrollLeft = scrollLeft - walk;
+        });
+    </script>
 </body>
 </html>
