@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>James Sexton III | Data Analyst</title>
-    <style>
+  <style>
     body {
         margin: 0;
         padding: 0;
-        /* Swaps the flat black for a modern, premium dark slate gradient */
         background: radial-gradient(circle at top, #2d323e 0%, #121418 100%);
         display: flex;
         justify-content: center;
@@ -19,24 +18,30 @@
     
     .office-container {
         position: relative;
-        /* Scales the image up to fill 95% of the screen width or 90% of the height */
         width: 95vw;
         max-width: 1500px;
         max-height: 90vh;
         aspect-ratio: 16 / 9;
         
-        /* Ensure your extension here matches what you uploaded (.webp or .jpg) */
         background-image: url('assets/cubicle-bg-1.0.webp'); 
-        
-        /* Cover ensures the image stretches flush to the new borders */
         background-size: cover; 
         background-repeat: no-repeat;
         background-position: center;
         
-        /* The UI Touch: A clean slate-grey frame, rounded corners, and deep shadow */
         border: 4px solid #434c5e; 
         border-radius: 12px; 
         box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+
+    /* --- MOBILE SCALING FIX --- */
+    @media (max-width: 768px) {
+        .office-container {
+            /* Shifts from a widescreen to a taller portrait shape */
+            aspect-ratio: 4 / 5; 
+            width: 92vw;
+            max-height: 85vh;
+            /* 'cover' automatically crops the side walls and zooms in on the center desk */
+        }
     }
 </style>
 </head>
