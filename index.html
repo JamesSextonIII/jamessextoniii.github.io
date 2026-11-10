@@ -2,55 +2,49 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!-- This viewport tag is strictly required for the mobile CSS to trigger -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>James Sexton III | Data Analyst</title>
-  <style>
-    body {
-        margin: 0;
-        padding: 0;
-        background: radial-gradient(circle at top, #2d323e 0%, #121418 100%);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        overflow: hidden;
-    }
-    
-    .office-container {
-        position: relative;
-        width: 95vw;
-        max-width: 1500px;
-        max-height: 90vh;
-        aspect-ratio: 16 / 9;
-        
-        background-image: url('assets/cubicle-bg-1.0.webp'); 
-        background-size: cover; 
-        background-repeat: no-repeat;
-        background-position: center;
-        
-        border: 4px solid #434c5e; 
-        border-radius: 12px; 
-        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 0, 0, 0.5);
-    }
-
-    /* --- MOBILE SCALING FIX --- */
-    @media (max-width: 768px) {
-        .office-container {
-            /* Shifts from a widescreen to a taller portrait shape */
-            aspect-ratio: 4 / 5; 
-            width: 92vw;
-            max-height: 85vh;
-            /* 'cover' automatically crops the side walls and zooms in on the center desk */
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: radial-gradient(circle at top, #2d323e 0%, #121418 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
         }
-    }
-</style>
+        
+        .office-container {
+            position: relative;
+            width: 95vw;
+            max-width: 1500px;
+            max-height: 90vh;
+            aspect-ratio: 16 / 9;
+            
+            background-image: url('assets/cubicle-bg-1.0.webp'); 
+            background-size: cover; 
+            background-repeat: no-repeat;
+            background-position: center;
+            
+            border: 4px solid #434c5e; 
+            border-radius: 12px; 
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        /* --- MOBILE SCALING FIX --- */
+        @media (max-width: 768px) {
+            .office-container {
+                aspect-ratio: 4 / 5; 
+                width: 92vw;
+                max-height: 85vh;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- The background image loads here -->
-    <div class="office-container">
-
-        <!-- We will add the clickable invisible buttons for the folders, monitor, and cabinet here next -->
-
-    </div>
+    <div class="office-container"></div>
 </body>
 </html>
