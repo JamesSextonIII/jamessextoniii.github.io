@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Added maximum-scale to prevent accidental double-tap zooming on mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>James Sexton III | Data Analyst</title>
     <style>
         body {
@@ -13,6 +14,8 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            /* dvh fixes the awkward address bar gap on mobile browsers */
+            height: 100dvh; 
             overflow: hidden;
         }
         
@@ -26,12 +29,10 @@
             
             overflow-x: auto; 
             overflow-y: hidden; 
-            /* Hide scrollbar for IE, Edge and Firefox */
             -ms-overflow-style: none;  
             scrollbar-width: none;  
         }
 
-        /* Hide scrollbar for Chrome, Safari and Opera */
         .office-frame::-webkit-scrollbar {
             display: none;
         }
@@ -44,23 +45,21 @@
             background-repeat: no-repeat;
             background-position: center;
             position: relative;
-            
-            /* Indicate the area is draggable */
             cursor: grab;
         }
         
-        /* Change cursor when actively dragging */
         .office-scene:active {
             cursor: grabbing;
         }
 
         @media (max-width: 768px) {
             .office-frame {
-                height: 85vh; 
+                height: 95vh; 
+                height: 95dvh; /* Expands to fill almost the whole screen minus a neat margin */
             }
             .office-scene {
-                /* Ensures the image stays wide enough to drag on mobile */
-                min-width: 200vw; 
+                /* Increased slightly to ensure the sides don't get cropped when the frame gets taller */
+                min-width: 240vw; 
             }
         }
     </style>
@@ -75,9 +74,16 @@
         </div>
     </div>
 
-    <!-- Mouse and Touch Dragging Script -->
     <script>
         const slider = document.getElementById('officeFrame');
+        
+        // --- NEW: Center the image on load ---
+        window.addEventListener('load', () => {
+            // Calculates the exact middle of the scrollable area and jumps to it
+            slider.scrollLeft = (slider.scrollWidth - slider.clientWidth) / 2;
+        });
+
+        // --- Mouse Dragging Script ---
         let isDown = false;
         let startX;
         let scrollLeft;
@@ -98,9 +104,9 @@
         
         slider.addEventListener('mousemove', (e) => {
             if (!isDown) return;
-            e.preventDefault(); // Prevents accidental text/image highlighting
+            e.preventDefault(); 
             const x = e.pageX - slider.offsetLeft;
-            const walk = (x - startX) * 2; // The * 2 determines scroll speed/sensitivity
+            const walk = (x - startX) * 2; 
             slider.scrollLeft = scrollLeft - walk;
         });
     </script>
